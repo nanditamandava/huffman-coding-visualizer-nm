@@ -1,0 +1,588 @@
+/* General Styles */
+body {
+    background-color: #f0e8d2; /* Warm beige background */
+    font-family: 'Courier New', Courier, monospace;
+    color: #2e3a2e; /* Dark text suitable on green */
+}
+
+/* Subtle beige gingham wallpaper (optional via .gingham-bg on body) */
+.gingham-bg {
+    background-color: #f0e8d2;
+    background-image:
+      linear-gradient(0deg, rgba(90,70,51,0.05) 50%, rgba(90,70,51,0) 50%),
+      linear-gradient(90deg, rgba(90,70,51,0.05) 50%, rgba(90,70,51,0) 50%);
+    background-size: 35px 35px;
+}
+
+/* Typography */
+h1 {
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    color: #5a4a3a; /* Earthy brown */
+    font-family: 'Georgia', serif;
+}
+
+/* Only the main title uses IM Fell Pica italic */
+#main-title {
+    font-family: 'IM Fell Pica', serif;
+    font-style: italic;
+    font-size: 3.85rem; /* ~10% larger than 3.5rem */
+}
+
+.card {
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.12);
+    margin-bottom: 20px;
+    border: 1px solid #cdb9a3; /* Warm light brown border */
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #fffef9; /* Light card body */
+    color: #3e3e2f; /* Dark text inside card body */
+}
+
+.card-header {
+    background-color: #5a4633; /* Slightly lighter warm brown */
+    font-weight: 600;
+    border-bottom: 1px solid #3d2e21;
+    color: #fff6e6; /* Light cream text */
+    font-family: 'Georgia', serif;
+}
+
+.card .nav-tabs .nav-link {
+    color: #f1e6d6; /* Light on dark card */
+    font-family: 'Georgia', serif;
+}
+
+.card .nav-tabs .nav-link.active {
+    font-weight: 600;
+    background-color: #6a4f39; /* Slightly lighter brown for active */
+    color: #fffaf0;
+}
+
+/* Input Section */
+#manual-inputs .input-group {
+    margin-bottom: 10px;
+}
+
+/* Center all rows' contents */
+.container > .row {
+    justify-content: center;
+}
+
+/* Center cards and constrain max width so they don't span full screen */
+.card {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1200px;
+}
+
+/* Tree page layout: maximize tree card height */
+#tree-page-container {
+    min-height: calc(100vh - 200px);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+#tree-page-container .card {
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    max-width: none;
+}
+
+/* Left sidebar cards - uniform width */
+#tree-page-container .col-lg-4 {
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+    flex: 0 0 calc(33.333% - 0.5rem);
+    max-width: calc(33.333% - 0.5rem);
+}
+
+#tree-page-container .col-lg-4 .card {
+    width: 100%;
+}
+
+/* Tree card should fill available height */
+#tree-page-container .col-lg-8 {
+    flex: 0 0 calc(66.667% - 0.5rem);
+    max-width: calc(66.667% - 0.5rem);
+}
+
+#tree-page-container .col-lg-8 .card {
+    min-height: calc(100vh - 200px);
+    width: 100%;
+}
+
+#tree-container {
+    min-height: calc(100vh - 300px);
+}
+
+@media (max-width: 992px) {
+    #tree-page-container {
+        min-height: auto;
+        gap: 1.5rem;
+    }
+    #tree-page-container .col-lg-4,
+    #tree-page-container .col-lg-8 {
+        flex: 0 0 100%;
+        max-width: 100%;
+        max-height: none;
+    }
+    #tree-page-container .col-lg-8 .card {
+        min-height: 600px;
+    }
+}
+
+/* Extra space between the main title and the first card */
+.container > h1 {
+    margin-bottom: 3rem; /* increase spacing below heading */
+    font-size: 3.5rem;
+}
+
+.char-input {
+    max-width: 120px;
+}
+
+.freq-input {
+    max-width: 130px;
+}
+
+.char-input {
+    min-width: 180px;
+    flex: 0 0 180px;
+}
+
+.remove-btn {
+    width: 40px;
+    font-weight: bold;
+}
+
+/* Ensure the '+ add character' button shows full text */
+#add-row {
+    white-space: nowrap;
+    min-width: 170px;
+}
+
+.btn-group .btn {
+    min-width: 90px;
+}
+
+/* Tree Visualization */
+#tree-container {
+    overflow: visible;
+    background-color: #fffef9; /* Off-white beige */
+    border-radius: 8px;
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    min-height: 100%;
+}
+
+#tree-svg {
+    display: block;
+    margin: 0 auto;
+}
+
+.node {
+    cursor: pointer;
+}
+
+.node circle {
+    stroke: #8b7355; /* Earthy brown stroke */
+    stroke-width: 2px;
+    transition: all 0.5s ease;
+}
+
+.node text {
+    font: 14.4px 'Georgia', serif;
+    font-weight: 700;
+    fill: #2d2416; /* Very dark for high contrast */
+    paint-order: stroke fill; /* Ensure stroke is drawn beneath fill for readability */
+    stroke: #ffffff; /* White outline to increase contrast on colored circles */
+    stroke-width: 1.2px;
+    stroke-linejoin: round;
+}
+
+.node.internal text {
+    fill: #1a140d; /* Even darker for internal nodes */
+    font-weight: 800;
+    font-size: 15.5px;
+}
+
+.link {
+    fill: none;
+    stroke: #9db584; /* Green-toned brown for links */
+    stroke-width: 2.5px;
+    transition: all 0.5s ease;
+}
+
+.node.highlight circle {
+    stroke: #9d6b3f; /* Darker earthy brown for highlight */
+    stroke-width: 3px;
+    filter: drop-shadow(0 0 8px rgba(157, 107, 63, 0.6));
+}
+
+.pulse-red circle {
+    stroke: #9d6b3f !important;
+    stroke-width: 3px;
+    filter: drop-shadow(0 0 10px rgba(157, 107, 63, 0.8));
+    animation: flash-red 800ms ease-in-out 2;
+}
+
+.edge-label {
+    font-size: 12.1px;
+    fill: #7a5f3f;
+    user-select: none;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+}
+
+.code-label {
+    font-size: 11px;
+    fill: #8b7355;
+    font-weight: 700;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* Internal nodes: keep circle background GREEN at all times */
+.node.internal circle,
+circle.merged {
+    fill: #9cc89c; /* Green */
+    stroke: #2f6b2f;
+}
+
+.node.leaf circle {
+    fill: #c9b99a; /* Earthy beige for leaf nodes */
+    stroke: #7a5f3f;
+}
+
+/* Node states - clearer meaning */
+/* Apply merging emphasis only to INTERNAL nodes so leaves keep their leaf color */
+.node.internal.merging circle {
+    fill: #9cc89c;
+    stroke: #2f6b2f;
+    stroke-width: 3px;
+}
+
+/* Maroon flash for nodes that are about to merge (works for both leaf and internal)
+   We don't change fill here to preserve leaf coloring; only stroke animates. */
+@keyframes flash-maroon {
+  0% { stroke: #7a2d2d; filter: drop-shadow(0 0 0 rgba(122,45,45,0)); }
+  50% { stroke: #7a2d2d; filter: drop-shadow(0 0 8px rgba(122,45,45,0.6)); }
+  100% { stroke: inherit; filter: drop-shadow(0 0 0 rgba(122,45,45,0)); }
+}
+
+.node.merging circle {
+  animation-name: flash-maroon;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: 1;
+  animation-duration: 450ms; /* fixed visibility */
+}
+
+/* Steps Container fills card; scroll only on overflow */
+.steps-container {
+    flex: 1 1 auto;
+    max-height: none;
+    height: 100%;
+    overflow: auto;
+    padding: 10px;
+    background-color: #f5f1e8;
+    border-radius: 5px;
+    border: 1px solid #d4c4b0;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.step {
+    padding: 6px;
+    margin-bottom: 6px;
+    border-left: 4px solid #8b7355;
+    background-color: #fffef9;
+    border-radius: 0 4px 4px 0;
+    transition: all 0.3s ease;
+    color: #3e3e2f;
+    font-size: 0.85rem;
+}
+
+.step.highlight {
+    border-left-color: #9d6b3f;
+    background-color: #f0e8dc;
+}
+
+/* Intermediate hint block shown after the current step */
+.step.next-merge {
+    border-left-color: #7a2d2d;
+    background-color: #f6eeea;
+    font-weight: 700;
+}
+.step.next-merge .label {
+    font-weight: 700;
+    color: #7a2d2d;
+    margin-right: 8px;
+    text-transform: lowercase;
+}
+.step.next-merge code {
+    background: #efe3de;
+    padding: 1px 4px;
+    border-radius: 3px;
+}
+
+/* Mini Priority Queue */
+.pq-panel {
+    border: 1px solid #d4c4b0;
+    border-left: 4px solid #7a2d2d; /* maroon accent */
+    background: #fffef9;
+    border-radius: 4px;
+    padding: 10px 10px;
+    min-height: 70px;
+    max-height: 180px;
+    overflow-x: visible;
+    overflow-y: auto;
+    font-family: 'Courier New', Courier, monospace;
+    white-space: normal;
+}
+.pq-title {
+    color: #7a2d2d;
+    font-weight: 700;
+    margin-bottom: 6px;
+    text-transform: lowercase;
+}
+.pq-list { list-style: none; padding-left: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.pq-item {
+    background: #f6eeea;
+    border: 1px solid #e6d7cd;
+    border-radius: 3px;
+    padding: 2px 6px;
+    color: #3e3e2f;
+    font-weight: 600;
+    font-size: 12px;
+}
+.pq-item.merge { border-color: #7a2d2d; box-shadow: 0 0 0 1px #7a2d2d inset; }
+
+/* Merge annotation strip under tree */
+.merge-annotation {
+    border: 1px solid #d4c4b0;
+    border-left: 4px solid #7a2d2d;
+    background: #f6eeea;
+    border-radius: 4px;
+    padding: 8px 10px;
+    color: #3e3e2f;
+    font-weight: 600;
+}
+
+/* Huffman Codes */
+.huffman-codes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    max-height: 160px; /* keep codes visible but bounded */
+    overflow-y: auto;   /* vertical scrollbar for codes grid */
+}
+
+.code-item {
+    background-color: #e8ddd4;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    color: #3e3e2f;
+    border: 1px solid #d4c4b0;
+}
+
+.table code {
+    background: #f5f1e8;
+    padding: 1px 4px;
+    border-radius: 3px;
+    color: #5a4a3a;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.code-item .char {
+    background-color: #8b7355;
+    color: #fffef9;
+    padding: 2px 6px;
+    border-radius: 3px;
+    margin-right: 5px;
+}
+
+/* Hidden sections - for sequential display */
+.section-hidden {
+    display: none !important;
+}
+
+/* Export overlay (in-page codes & table view) */
+.export-overlay {
+    position: fixed;
+    inset: 0;
+    background: #f0e8d2; /* match main page bg */
+    z-index: 1050;
+    overflow: auto;
+    padding: 24px;
+}
+
+.section-visible {
+    display: block !important;
+}
+
+/* Smooth transitions for sections */
+.row, .card {
+    transition: opacity 0.3s ease;
+}
+
+.steps-container::-webkit-scrollbar-thumb {
+    background: #d4c4b0;
+}
+
+.steps-container::-webkit-scrollbar-track {
+    background: #f5f1e8;
+}
+
+/* Animation */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.animate-pulse {
+    animation: pulse 1s infinite;
+}
+
+@keyframes flash-red {
+    0% { transform: scale(1); }
+    25% { transform: scale(1.06); }
+    50% { transform: scale(1); }
+    75% { transform: scale(1.06); }
+    100% { transform: scale(1); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .huffman-codes {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .code-item {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #b8c2cc;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a0aec0;
+}
+
+/* Form elements - earthy tones */
+.form-control, .form-select {
+    background-color: #fffef9;
+    border-color: #d4c4b0;
+    color: #3e3e2f;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* Input placeholder color */
+.form-control::placeholder {
+    color: #426343; /* Dark green */
+    opacity: 1; /* Ensure full opacity across browsers */
+}
+
+/* Safari/Edge legacy placeholder selectors for broader support */
+.form-control::-webkit-input-placeholder { color: #496349; }
+.form-control:-ms-input-placeholder { color: #496349; }
+
+.form-control:focus, .form-select:focus {
+    background-color: #fffef9;
+    border-color: #8b7355;
+    box-shadow: 0 0 0 0.2rem rgba(139, 115, 85, 0.25);
+}
+
+.btn-primary {
+    background-color: #8b7355;
+    border-color: #8b7355;
+    color: #fffef9;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.btn-primary:hover {
+    background-color: #7a5f3f;
+    border-color: #7a5f3f;
+}
+
+/* Add Character button (uses .btn-secondary) */
+.btn-secondary {
+    background-color: #496349; /* Dark green */
+    border-color: #496349;
+    color: #fffef9;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus {
+    background-color: #385b39; /* Slightly darker on hover */
+    border-color: #385b39;
+    color: #fffef9;
+}
+
+.btn-success {
+    background-color: #9d6b3f;
+    border-color: #9d6b3f;
+    color: #fffef9;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.btn-outline-primary, .btn-outline-success, .btn-outline-danger {
+    border-color: #8b7355;
+    color: #8b7355;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.btn-outline-primary:hover, .btn-outline-success:hover {
+    background-color: #8b7355;
+    border-color: #8b7355;
+    color: #fffef9;
+}
+
+.btn-outline-danger {
+    border-color: #9d6b3f;
+    color: #9d6b3f;
+}
+
+.btn-outline-danger:hover {
+    background-color: #9d6b3f;
+    border-color: #9d6b3f;
+    color: #fffef9;
+}
+
+/* Emphasize Export PNG button */
+#export-png {
+    background-color: #3a4e3a; /* darker green-brown */
+    border-color: #2f3f2f;
+    color: #fffef9;
+}
+
+#export-png:hover,
+#export-png:focus {
+    background-color: #2f3f2f;
+    border-color: #263326;
+    color: #fffef9;
+}
