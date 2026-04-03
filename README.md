@@ -1,4 +1,4 @@
-# Huffman Coding Visualizer 🐌
+# Huffman Coding Visualizer 
 
 An interactive web-based visualization tool for understanding the Huffman coding algorithm. Watch as characters are combined into a binary tree step-by-step, and see how variable-length codes are generated to optimize data compression.
 
